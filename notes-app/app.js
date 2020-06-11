@@ -9,8 +9,15 @@ yargs.version('1.1.0')
 yargs.command({
     command: 'add',
     describe: 'Add a new note',
-    handler: function () {
-        console.log('Adding a new note!')
+    builder: {
+        title: {
+            describe: 'Note Title',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        console.log('Adding a new note! with: ' +argv.title);
     }
 })
 
@@ -18,8 +25,20 @@ yargs.command({
 yargs.command({
     command: 'remove',
     describe: 'Remove a note',
-    handler: function () {
-        console.log('Removing the note')
+    builder: {
+        title: {
+            describe: 'Note Title',
+            demandOption: true,
+            type: 'string'
+        },
+        description: {
+            describe: 'Description text',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        console.log('Removing a note! Title: ' +argv.title+ " Description: " +argv.description);
     }
 })
 
@@ -41,4 +60,14 @@ yargs.command({
     }
 })
 
-console.log(yargs.argv)
+yargs.parse()
+// console.log(yargs.argv)
+
+
+// NOTES: THESE ARE A FEW COMMANDS IN ORDER TO PLAY WITH VALUES
+
+/*
+    node app.js add --title="Title: NodeJSTraining"
+    node app.js remove --description="This line remove a note"
+
+ */
