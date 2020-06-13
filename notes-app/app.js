@@ -1,6 +1,6 @@
 const chalk = require('chalk')
 const yargs = require('yargs')
-const getNotes = require('./notes.js')
+const notes = require('./notes.js')
 
 // Customize yargs version
 yargs.version('1.1.0')
@@ -11,13 +11,18 @@ yargs.command({
     describe: 'Add a new note',
     builder: {
         title: {
-            describe: 'Note Title',
+            describe: 'Note title',
+            demandOption: true,
+            type: 'string'
+        },
+        body: {
+            describe: 'Note body',
             demandOption: true,
             type: 'string'
         }
     },
     handler: function (argv) {
-        console.log('Adding a new note! with: ' +argv.title);
+        notes.addNote(argv.title, argv.body)
     }
 })
 
@@ -25,20 +30,8 @@ yargs.command({
 yargs.command({
     command: 'remove',
     describe: 'Remove a note',
-    builder: {
-        title: {
-            describe: 'Note Title',
-            demandOption: true,
-            type: 'string'
-        },
-        description: {
-            describe: 'Description text',
-            demandOption: true,
-            type: 'string'
-        }
-    },
-    handler: function (argv) {
-        console.log('Removing a note! Title: ' +argv.title+ " Description: " +argv.description);
+    handler: function () {
+        console.log('Removing the note')
     }
 })
 
@@ -61,13 +54,3 @@ yargs.command({
 })
 
 yargs.parse()
-// console.log(yargs.argv)
-
-
-// NOTES: THESE ARE A FEW COMMANDS IN ORDER TO PLAY WITH VALUES
-
-/*
-    node app.js add --title="Title: NodeJSTraining"
-    node app.js remove --description="This line remove a note"
-
- */
