@@ -56,8 +56,7 @@ const addNote = function (title, body) {
     const notes = loadNotes()
     const duplicateNotes = notes.filter(function (note) {
         return note.title === title
-    })
-
+    });
     if (duplicateNotes.length === 0) {
         notes.push({
             title: title,
@@ -69,25 +68,27 @@ const addNote = function (title, body) {
         console.log(chalk.red.inverse('Note title taken!'))
     }
 }
-
 const removeNote = function (title) {
-    const notes = loadNotes()
-    const notesToKeep = notes.filter(function (note) {
-        return note.title !== title
-    })
+    const notes = loadNotes();
 
-    if (notes.length > notesToKeep.length) {
-        console.log(chalk.green.inverse('Note removed!'))
-        saveNotes(notesToKeep)
-    } else {
-        console.log(chalk.red.inverse('No note found!'))
+    function removeItem (note) {
+        return note.title === title;
     }
-}
+    let itemToDelete = notes.findIndex(removeItem);
+
+    if (itemToDelete >= 0) {
+        notes.splice(itemToDelete,1);
+        saveNotes(notes);
+        console.log(chalk.green.inverse('Note Deleted'));
+    } else {
+        console.log(chalk.red.inverse('Item not found'));
+    }
+};
 
 const saveNotes = function (notes) {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataJSON)
-}
+};
 
 const loadNotes = function () {
     try {
