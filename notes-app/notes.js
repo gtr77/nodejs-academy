@@ -52,6 +52,10 @@ const addNote = (title, body) => {
     const notes = loadNotes()
     const duplicateNote = notes.find((note) => note.title === title);
 
+    // node --inspect-brk app.js add  --title="GHOLA" --body="Welcome"
+    // Be careful if you get timeout run the command above
+    // debugger
+
     if (!duplicateNote) {
         notes.push({
             title: title,
