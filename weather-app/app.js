@@ -33,4 +33,22 @@ setTimeout(() => {
 
 console.log("Stopping");
 
+/* KEY CONCEPTS
+CALL STACK -> THE PLACE THAT STARTS WITH MAIN() AND CALL EVERY SINGLE LINE OF THE PROGRAM
+    -> remove all logs and main from the callStack
+    -> Program Finishes
+    -> console.log("Stopping");
+    -> console.log("Starting");
+    -> main()
+NODE API'S -> ASYNCRONOUS CODE RUNNING BEHIND THE SCENES LIKE THE SETTIMEOUT FUNCTION
+    -> setTimeout 0 Seconds
+    -> setTimeout 2 Seconds
+    -> waiting to the callStack to be clean
+    -> add to the list
+CALLBACK QUEUE, -> THIS IS THE EVENT LOOP THAT ADD THE NODE OR API REQUEST TO BE READY TO EXECUTE
+    -> setTimeout 0 Seconds
+    -> setTimeout 2 Seconds
+    -> Clean Call Stack
+ */
+
 
