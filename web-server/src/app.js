@@ -9,13 +9,26 @@ app.get('', (req, res) => {
     res.send("Hello Express");
 })
 app.get('/help', (req, res) => {
-    res.send("Help Express Page");
+    res.send("<h1>Help Page</h1>");
+})
+app.get('/challenge', (req, res) => {
+    res.send("<h1>Challenge Page</h1>");
 })
 app.get('/about', (req, res) => {
-    res.send("about Express Page");
+    res.send([
+        {
+            title: 'Weather'
+        },
+        {
+            name: 'Gustavo Romero'
+        }
+    ]);
 })
 app.get('/weather', (req, res) => {
-    res.send("Weather Express Page");
+    res.send({
+        forecast: "Its raining",
+        location: "Philadelphia"
+    });
 })
 app.listen(3000, () => {
     console.log('Server on 3000')
