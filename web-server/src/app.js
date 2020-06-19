@@ -2,9 +2,16 @@ const path = require('path');
 const express = require('express');
 
 const app = express();
-const publicDirectoryPath = path.join(__dirname, '../public')
 
+// PATHS FOR EXPRESS CONFIG
+const publicDirectoryPath = path.join(__dirname, '../public')
+const viewsPath = path.join(__dirname, '../templates');
+
+// SETUP HABDLEBARS ENGINE AND VIEWS LOCATION
 app.set('view engine', 'hbs');
+app.set('views', viewsPath)
+
+// SETUP STATIC DIRECTORY
 app.use(express.static(publicDirectoryPath));
 
 app.get('', (req, res) => {
