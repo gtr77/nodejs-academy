@@ -44,16 +44,26 @@ app.get('/help', (req, res) => {
     });
 });
 
-
-// res.render('index', {
-//     title: 'Weather',
-//     name: 'Andrew Mead'
-// })
-
 app.get('/weather', (req, res) => {
     res.send({
         forecast: "Its raining",
         location: "Philadelphia"
+    });
+})
+app.get('/help/*', (req, res) => {
+    res.render('404', {
+        title: '404',
+        name: 'Gustavo',
+        author: 'Beethoven',
+        errorMessage: "Help Article Page 404 not found"
+    })
+})
+app.get('*', (req, res) => {
+    res.render('404', {
+        title: '404',
+        name: 'Gustavo',
+        author: 'Beethoven',
+        errorMessage: "Page 404 not found"
     });
 })
 app.listen(3000, () => {
