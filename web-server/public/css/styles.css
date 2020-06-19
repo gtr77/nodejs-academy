@@ -1,6 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    text-decoration: none;
+}
 h1 {
     color: orange;
 }
 img {
     width: 400px;
+}
+ul {
+    display: inline-flex;
+}
+a {
+    color: white;
+    font-size: 20px;
+    margin: 5px;
+}
+body {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100vh;
+    background: #afb3df;
+}
+header, footer {
+    height: 70px;
+    width: 100%;
+    background-color: #112b42;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }

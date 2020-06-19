@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/css/styles.css">
-    <script src="./js/app.js"></script>
 </head>
 <body>
-<h1>HBS!!! {{title}} </h1>
-<p><strong><em>{{description}}</em></strong></p>
-<img src="/img/foto.webp" alt=""/>
+    {{>header}}
+    <strong><em>{{description}}</em></strong>
+    {{>footer}}
 </body>
 </html>
