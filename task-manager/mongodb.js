@@ -9,61 +9,39 @@ const { MongoClient, ObjectID } = require('mongodb');
 const connectionURL = 'mongodb://127.0.0.1:27017';
 const databaseName = 'task-manager';
 
-const id = new ObjectID();
-console.log(id);
-console.log(id.id.length) // BINARY
-console.log(id.toHexString().length) // BINARY TO STRING
-console.log(id.getTimestamp());
-
 MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client) => {
     if (error) {
         return console.log('Unable to connect to database!');
     }
-    // console.log('Successful Connection');
+
     const db = client.db(databaseName);
 
-    // db.collection('users').insertOne({
-    //     // _id: id,
-    //     name: 'Yecid',
-    //     age: 22
-    // }, (error, result) => {
-    //     if (error){
-    //         return console.log('Unable to insert an user!');
-    //     }
-    //     // Show document or Object ready to be inserted in MongoDB
-    //     console.log(result.ops)
-    // })
-    // db.collection('users').insertMany([
-    //     {
-    //         name: 'Laura',
-    //         age: 28
-    //     }, {
-    //         name: 'Tyna',
-    //         age: 22
-    //     }
-    // ], (error, result) => {
+    // SEARCHING BY NAME
+    // db.collection('users').findOne({ name: "Yecid" }, (error, user) => {
+    // SEARCHING BY OBJECTID _id: new ObjectID("5ef64644ece6051c3028d6bf")
+    // db.collection('users').findOne({ _id: new ObjectID("5ef64644ece6051c3028d6bf") }, (error, user) => {
     //     if (error) {
-    //         return console.log('Unable to insert Documents!');
+    //         return console.log('Unable to fetch')
     //     }
-    //     console.log(result.ops)
+    //     console.log(user)
     // })
-    // db.collection('tasks').insertMany([
-    //     {
-    //         description: 'Welcome to Mongo DB',
-    //         completed: true
-    //     },{
-    //         description: 'Insert data into MongoDB',
-    //         completed: true
-    //     },{
-    //         description: 'Filter data into MongoDB',
-    //         completed: false
-    //     }
-    // ], (error, result) => {
-    //     if (error){
-    //         return console.log("Unable to insert tasks collections");
-    //     }
-    //     console.log(result.ops);
+
+    // db.collection('users').find({ age: 29 }).toArray((error, users) => {
+    //     console.log(users)
     // })
+    // db.collection('users').find({ age: 29 }).count((error, count) => {
+    //     console.log(count)
+    // })
+    db.collection('users').findOne({ _id: new ObjectID("5ef64644ece6051c3028d6bf") }, (error, result) => {
+        if (error) {
+            return console.log(error)
+        }
+        console.log(result);
+    });
+    db.collection('tasks').find({ completed: true }).toArray((error, tasks) => {
+        console.log(tasks)
+    });
+
 });
 
 // node mongodb.js --> To test connection
