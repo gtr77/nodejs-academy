@@ -1,10 +1,19 @@
 // CRUD
 
-const mongodb = require('mongodb');
-const MongoClient = mongodb.MongoClient;
+// const mongodb = require('mongodb');
+// const MongoClient = mongodb.MongoClient;
+// const ObjectID = mongodb.ObjectID;
+
+const { MongoClient, ObjectID } = require('mongodb');
 
 const connectionURL = 'mongodb://127.0.0.1:27017';
 const databaseName = 'task-manager';
+
+const id = new ObjectID();
+console.log(id);
+console.log(id.id.length) // BINARY
+console.log(id.toHexString().length) // BINARY TO STRING
+console.log(id.getTimestamp());
 
 MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client) => {
     if (error) {
@@ -14,8 +23,9 @@ MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client)
     const db = client.db(databaseName);
 
     // db.collection('users').insertOne({
-    //     name: 'Gustavo',
-    //     age: 29
+    //     // _id: id,
+    //     name: 'Yecid',
+    //     age: 22
     // }, (error, result) => {
     //     if (error){
     //         return console.log('Unable to insert an user!');
@@ -37,23 +47,23 @@ MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client)
     //     }
     //     console.log(result.ops)
     // })
-    db.collection('tasks').insertMany([
-        {
-            description: 'Welcome to Mongo DB',
-            completed: true
-        },{
-            description: 'Insert data into MongoDB',
-            completed: true
-        },{
-            description: 'Filter data into MongoDB',
-            completed: false
-        }
-    ], (error, result) => {
-        if (error){
-            return console.log("Unable to insert tasks collections");
-        }
-        console.log(result.ops);
-    })
+    // db.collection('tasks').insertMany([
+    //     {
+    //         description: 'Welcome to Mongo DB',
+    //         completed: true
+    //     },{
+    //         description: 'Insert data into MongoDB',
+    //         completed: true
+    //     },{
+    //         description: 'Filter data into MongoDB',
+    //         completed: false
+    //     }
+    // ], (error, result) => {
+    //     if (error){
+    //         return console.log("Unable to insert tasks collections");
+    //     }
+    //     console.log(result.ops);
+    // })
 });
 
 // node mongodb.js --> To test connection
