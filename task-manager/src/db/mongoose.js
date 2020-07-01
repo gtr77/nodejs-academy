@@ -33,12 +33,25 @@ const User = mongoose.model('User', {
                 throw new Error('Age must be a postive number')
             }
         }
+    },
+    password: {
+        type: String,
+        required: true,
+        minLength: 7,
+        trim: true,
+        validate(value) {
+            console.log("Password:", value)
+            if (value.toLowerCase().includes('password') ) {
+                throw new Error('Try with a password different to password')
+            }
+        }
     }
 })
 
 const me = new User({
     name: 'Stephany',
-    email: 'gTr@gMail.com'
+    email: 'gTr@gMail.com',
+    password: '    6789fd87sa56987PASSwosrdHUILKJfdjsalñ   '
 })
 
 me.save().then(() => {
@@ -49,16 +62,18 @@ me.save().then(() => {
 
 const Tasks = mongoose.model('Tasks', {
     description: {
-        type: String
+        type: String,
+        trim: true,
+        required: true
     },
     completed: {
-        type: Boolean
+        type: Boolean,
+        default: false
     }
 })
 
 const myTasks = new Tasks({
-    description: 'Create a Mongoose connection',
-    completed: true
+    description: '     sssCreate a Mongoose connectionSSSS  '
 });
 
 myTasks.save().then(() => {
