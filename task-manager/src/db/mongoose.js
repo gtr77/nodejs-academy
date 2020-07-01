@@ -25,3 +25,23 @@ me.save().then(() => {
 }).catch((error) => {
     console.log(`Error!, ${error}`);
 })
+
+const Task = mongoose.model('Tasks', {
+    description: {
+        type: String
+    },
+    completed: {
+        type: Boolean
+    }
+})
+
+const myTasks = new tasks({
+    description: 'Create a Mongoose connection',
+    completed: true
+});
+
+myTasks.save().then(() => {
+    console.log(myTasks)
+}).catch((error) => {
+    console.log(`Error!, ${error}`);
+})
