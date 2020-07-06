@@ -8,65 +8,70 @@ const port = process.env.PORT || 3000
 
 app.use(express.json())
 
-app.post('/users', (req, res) => {
+app.post('/users', async (req, res) => {
     const user = new User(req.body)
-
-    user.save().then(() => {
-        res.send(user)
-    }).catch((e) => {
+    try {
+        await user.save()
+        res.status(201).send(user)
+    } catch (e) {
         res.status(400).send(e)
-    })
+    }
 })
 
-app.get('/users', (req, res) => {
-    User.find({}).then((users) => {
+app.get('/users', async (req, res) => {
+    try {
+        const users = await User.find({});
         res.send(users)
-    }).catch((e) => {
+    } catch (e) {
         res.status(500).send()
-    })
+    }
 })
 
-app.get('/users/:id', (req, res) => {
-    const _id = req.params.id
+app.get('/users/:id', async (req, res) => {
+    const _id = req.params.id;
 
-    User.findById(_id).then((user) => {
+    try {
+        const user = await User.findById(_id);
         if (!user) {
             return res.status(404).send()
         }
-
         res.send(user)
-    }).catch((e) => {
+    } catch (e) {
         res.status(500).send()
-    })
+    }
 })
 
-app.post('/tasks', (req, res) => {
+app.post('/tasks', async (req, res) => {
     const tasks = new Tasks(req.body)
-
-    tasks.save().then(() => {
-        res.send(tasks)
-    }).catch((e) => {
+    try {
+        const postedTasks = await tasks.save();
+        res.status(201).send(tasks)
+    } catch (e) {
         res.status(400).send(e)
-    })
+    }
 })
 
-app.get('/tasks', (req, res) => {
-    Tasks.find({}).then((tasks) => {
-        res.send(tasks)
-    }).catch((e) => {
+app.get('/tasks', async (req, res) => {
+    try {
+        const getTasks = await Tasks.find({})
+        res.send(getTasks);
+    } catch (e) {
         res.status(500).send()
-    })
+    }
 })
-app.get('/tasks/:id', (req, res) => {
+
+app.get('/tasks/:id', async (req, res) => {
     const _id = req.params.id;
-    Tasks.findById(_id).then((task) => {
+    try {
+        const task = await Tasks.findById(_id);
         if (!task) {
             return res.status(404).send()
         }
         res.send(task)
-    }).catch((e) => {
+
+    } catch (e) {
         res.status(500).send()
-    })
+    }
 })
 
 app.listen(port, () => {
