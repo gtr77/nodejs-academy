@@ -15,6 +15,8 @@ const bcrypt = require('bcryptjs');
 const myFunction = async () => {
     const password = 'SomePass165425432??!!???';
     const hashedPassword = await bcrypt.hash(password, 8);
+    // bcrypt.hash(password, 8); it takes 2 arguments pass and the rounds of the algorithm to be running
+    // The recommended value by the creator is 8 and is a balance between Speed Server and Security
 
     console.log(password)
     console.log(hashedPassword)
