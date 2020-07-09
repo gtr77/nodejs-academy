@@ -1,15 +1,13 @@
 const express = require('express')
-const Tasks = require('../models/tasks')
-const router = new express.Router();
+const Task = require('../models/task')
+const router = new express.Router()
 
-router.get('/test', (req, res) => {
-    res.send('NEW EXPRESS ROUTER')
-});
 router.post('/tasks', async (req, res) => {
-    const tasks = new Tasks(req.body)
+    const task = new Task(req.body)
+
     try {
-        const postedTasks = await tasks.save();
-        res.status(201).send(tasks)
+        await task.save()
+        res.status(201).send(task)
     } catch (e) {
         res.status(400).send(e)
     }
@@ -17,30 +15,32 @@ router.post('/tasks', async (req, res) => {
 
 router.get('/tasks', async (req, res) => {
     try {
-        const getTasks = await Tasks.find({})
-        res.send(getTasks);
+        const tasks = await Task.find({})
+        res.send(tasks)
     } catch (e) {
         res.status(500).send()
     }
 })
 
 router.get('/tasks/:id', async (req, res) => {
-    const _id = req.params.id;
+    const _id = req.params.id
+
     try {
-        const task = await Tasks.findById(_id);
+        const task = await Task.findById(_id)
+
         if (!task) {
             return res.status(404).send()
         }
-        res.send(task)
 
+        res.send(task)
     } catch (e) {
         res.status(500).send()
     }
 })
 
 router.patch('/tasks/:id', async (req, res) => {
-    const updates = Object.keys(req.body);
-    const allowedUpdates = ['completed', 'description']
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['description', 'completed']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
     if (!isValidOperation) {
@@ -48,10 +48,10 @@ router.patch('/tasks/:id', async (req, res) => {
     }
 
     try {
-        const task = await Tasks.findById(req.params.id);
+        const task = await Task.findById(req.params.id)
 
-        updates.forEach((update) => task[update] = req.body[update] );
-        await task.save();
+        updates.forEach((update) => task[update] = req.body[update])
+        await task.save()
 
         if (!task) {
             return res.status(404).send()
@@ -65,10 +65,10 @@ router.patch('/tasks/:id', async (req, res) => {
 
 router.delete('/tasks/:id', async (req, res) => {
     try {
-        const task = await Tasks.findByIdAndDelete(req.params.id)
+        const task = await Task.findByIdAndDelete(req.params.id)
 
         if (!task) {
-            return res.status(404).send()
+            res.status(404).send()
         }
 
         res.send(task)
